@@ -1,11 +1,16 @@
 import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
+  // const cartItems = getLocalStorage("so-cart");
+  const cartItems = [];
+  for (let i = 1, len = localStorage.length - 1; i < len; i++) {
+    let storageItem = JSON.parse(localStorage.getItem("so-cart"));
+    cartItems.push(storageItem);
+  }
+  console.log(cartItems);
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
-
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
@@ -22,6 +27,7 @@ function cartItemTemplate(item) {
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
 
+  console.log(newItem);
   return newItem;
 }
 
